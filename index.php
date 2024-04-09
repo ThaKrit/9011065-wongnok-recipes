@@ -194,13 +194,34 @@
         <div class="container mt-5">
             <style>hr.hr1 {border: 1px solid gray;}</style>
             <hr class="hr1"><br><br>
-            <h1 class="card-title text-center"><strong>All Recipes</strong></h1>
+            <h1 class="card-title text-center">
+                <strong>
+                    <?php
+                    if(isset($_POST['category1'])){
+                            echo "Category : Appetizer Recipes";
+                        }elseif(isset($_POST['category2'])){
+                            echo "Category : Savory Recipes";
+                        }elseif(isset($_POST['category3'])){
+                            echo "Category : Dessert Recipes";
+                        }elseif(isset($_POST['searchRecipe'])){
+                        if($_POST['txtSearch'] != ""){
+                            echo "Search Recipes : "  . '"' . $_POST['txtSearch'];
+                        }else{
+                            echo "All Recipes";
+                        }
+                        }elseif(isset($_POST['TimenLevel'])){
+                            echo "Search by Difficulty Level & Time to Cooking";   
+                        }elseif(isset($_GET['name'])){
+                            echo "Recipes By : " . $_GET['name'];
+                    }else{
+                            echo "All Recipes";
+                    }
+                    ?>
+                </strong></h1>
 
             <?php 
                 session_start();
                 error_reporting(0);
-                error_reporting(0);
-                    session_start();
 
                     include "controls/dbconnect.php";
                     $mysqli = new mysqli($servername, $username, $password, $database);
@@ -213,14 +234,14 @@
                         }elseif(isset($_POST['category3'])){
                             $queryItem = "SELECT * FROM foodrecipes WHERE food_category = '3'";
                         }elseif(isset($_POST['searchRecipe'])){
-                            if($_POST['txtSearch'] != ""){
+                    if($_POST['txtSearch'] != ""){
                             $queryItem = "SELECT * FROM foodrecipes WHERE food_by LIKE '%" .$_POST['txtSearch']. "%' 
                                             OR food_name LIKE '%" .$_POST['txtSearch']. "%'
                                             OR food_mat LIKE '%" .$_POST['txtSearch']. "%' ";
-                            }elseif($_POST['txtSearch'] == ""){
+                        }elseif($_POST['txtSearch'] == ""){
                             $queryItem = "SELECT * FROM foodrecipes";
-                            }
-                        }elseif(isset($_POST['TimenLevel'])){
+                        }
+                    }if(isset($_POST['TimenLevel'])){
                             if($_POST['txtTime'] != '0' && $_POST['txtLevel'] == 0){
                                 $queryItem = "SELECT * FROM foodrecipes WHERE food_time = '".$_POST['txtTime']."'";
                             }elseif($_POST['txtTime'] == '0' && $_POST['txtLevel'] != '0'){
@@ -228,6 +249,8 @@
                             }elseif($_POST['txtTime'] != '0' && $_POST['txtLevel'] != '0'){
                                 $queryItem = "SELECT * FROM foodrecipes WHERE food_time = '".$_POST['txtTime']."' AND food_level = '".$_POST['txtLevel']."' ";
                             }
+                        }if(isset($_GET['name'])){
+                            $queryItem = "SELECT * FROM foodrecipes WHERE food_by LIKE '%" .$_GET['name']. "%'";
                         }else{
                             $queryItem = "SELECT * FROM foodrecipes";
                     }
@@ -250,6 +273,8 @@
                         if($categoryID =="1"){$categoryName = "อาหารว่าง";}
                             elseif($categoryID =="2"){$categoryName = "อาหารคาว";}
                             elseif($categoryID =="3"){$categoryName = "อาหารหวาน";}
+
+                    
                             
                 ?>  
             
@@ -259,15 +284,16 @@
                         <div class="card-body">
                             <h4 class="card-title text-center"><strong><?php echo $recipeName?></strong></h4>
                             <h5 class="card-title text-center"><strong><?php echo $categoryName . " | ";?></strong>คะแนน 0 ดาว</h5>
-                            <form action="index.php?action=Detail" method="post" >
-                                <input type="hidden" name="hidden_id" value="<?php echo $recipeID;?>"> 
+                            <form action="detail.php" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="hidden_id" value="<?php echo $recipeID;?>">
+                                <input type="hidden" name="hidden_by" value="<?php echo $itemResult['food_by'];?>">
                                 <input type="submit" class="btn btn-dark btn-block" value="Detail" name="Detail">
                             </form>
                         </div>
                     </div>
                     </div>
                 
-                <?php }?>
+                <?php } ?>
 
 
     </section>

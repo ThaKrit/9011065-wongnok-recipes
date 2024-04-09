@@ -154,13 +154,13 @@ header("Location:../items.php");
 
                             <div class="form-group">
                                 <label>Ingredients</label>
-                                <textarea name="txtIng" id="txtIng" class="form-control form-control-lg rounded-0 " required="" maxLength="200" cdkTextareaAutosize><?php echo $recipeIngredients; ?></textarea>
+                                <textarea name="txtIng" id="txtIng" class="form-control form-control-lg rounded-0 " required="" maxLength="500" cdkTextareaAutosize><?php echo $recipeIngredients; ?></textarea>
 
                             </div>
 
                             <div class="form-group">
                                 <label>Step</label>
-                                <textarea name="txtStep" id="txtStep" class="form-control form-control-lg rounded-0" required="" maxLength="200" cdkTextareaAutosize><?php echo $recipeStep; ?></textarea>
+                                <textarea name="txtStep" id="txtStep" class="form-control form-control-lg rounded-0" required="" maxLength="500" cdkTextareaAutosize><?php echo $recipeStep; ?></textarea>
                             </div>
 
 
