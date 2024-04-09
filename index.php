@@ -268,7 +268,6 @@
                         $recipeimages = $itemResult['food_img'];
                         $recipeName = $itemResult['food_name'];
                         $recipeIngredients = $itemResult['food_mat'];
-                        $recipeScore = $itemResult['food_score']; 
                         $categoryName = "";
                         if($categoryID =="1"){$categoryName = "อาหารว่าง";}
                             elseif($categoryID =="2"){$categoryName = "อาหารคาว";}
@@ -285,8 +284,15 @@
                             <h4 class="card-title text-center"><strong><?php echo $recipeName?></strong></h4>
                             <h5 class="card-title text-center"><strong><?php echo $categoryName . " | ";?></strong>คะแนน 0 ดาว</h5>
                             <form action="detail.php" method="post" enctype="multipart/form-data">
-                                <input type="hidden" name="hidden_id" value="<?php echo $recipeID;?>">
-                                <input type="hidden" name="hidden_by" value="<?php echo $itemResult['food_by'];?>">
+                                <input type="hidden" name="hidden_img_food" value="<?php echo $recipeimages;?>">
+                                <input type="hidden" name="hidden_name_food" value="<?php echo $recipeName ;?>">
+                                <input type="hidden" name="hidden_cate_food" value="<?php echo $categoryName ;?>">
+                                <input type="hidden" name="hidden_ing_food" value="<?php echo $recipeIngredients;?>">
+                                <input type="hidden" name="hidden_id_food" value="<?php echo $recipeID;?>">
+                                <input type="hidden" name="hidden_step_food" value="<?php echo $itemResult['food_step'];?>">
+                                <input type="hidden" name="hidden_time_food" value="<?php echo $itemResult['food_time'];?>">
+                                <input type="hidden" name="hidden_level_food" value="<?php echo $itemResult['food_level'];?>">
+                                <input type="hidden" name="hidden_by_food" value="<?php echo $itemResult['food_by'];?>">
                                 <input type="submit" class="btn btn-dark btn-block" value="Detail" name="Detail">
                             </form>
                         </div>
