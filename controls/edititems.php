@@ -48,6 +48,9 @@ $itemQuery = $mysqli->query($itemSQL);
 header("Location:../items.php");
 }
 }
+if(isset($_POST['Cancle'])){
+    header("Location:../items.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -107,8 +110,7 @@ header("Location:../items.php");
                     session_start();
                     if ($_SESSION['isLogin'] == 1) { ?>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="../items.php">My Profile</a>
-                            <a class="dropdown-item" href="#">Favorite</a>
+                            <a class="dropdown-item" href="../items.php">My Recipes</a>
                             <a class="dropdown-item" href="logout.php">Logout</a>
                         </div>
                     <?php

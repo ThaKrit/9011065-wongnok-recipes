@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,8 +55,7 @@
                     session_start();
                     if($_SESSION['isLogin'] == 1) {?>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="items.php">My Profile</a>
-                        <a class="dropdown-item" href="#">Favorite</a>
+                        <a class="dropdown-item" href="items.php">My Recipes</a>
                         <a class="dropdown-item" href="controls/logout.php">Logout</a>
                 </div>
                 <?php
@@ -233,7 +233,7 @@
             <?php 
                 session_start();
                 error_reporting(0);
-
+                    $_SESSION['usermore'] = 0;
                     include "controls/dbconnect.php";
                     $mysqli = new mysqli($servername, $username, $password, $database);
                     $mysqli->set_charset("UTF8");
@@ -305,7 +305,7 @@
                                  <h6 class="card-title text-center">
                                  <?php
                                             if($itemResult['food_avg'] != 0){
-                                                echo "Rating".$itemResult['food_avg']." Star";
+                                                echo "Rating ".$itemResult['food_avg']." Star";
                                             }elseif($itemResult['food_avg'] == 0){
                                                 echo "Without Rating";
                                             }
@@ -344,9 +344,9 @@
         
             <p class="m-0 text-center text-white"> <?php 
             if($_SESSION['isLogin'] == 0){
-                echo"สวัสดีคณะกรรมการทุก ๆ ท่านครับ -/\-";
+                echo"สวัสดีคณะกรรมการทุก ๆ ท่านครับ -/\-".$_SESSION['usermore'];
             }else{
-                echo"สวัสดีคณะกรรมการทุก ๆ ท่านครับ -/\-";
+                echo"สวัสดีคณะกรรมการทุก ๆ ท่านครับ -/\-".$_SESSION['usermore'];
         }?> </p>
         
             
