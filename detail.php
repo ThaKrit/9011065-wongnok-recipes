@@ -1,3 +1,17 @@
+<?php
+session_start();
+$_SESSION['hidden_img_food'] = $_POST['hidden_img_food'];
+$_SESSION['hidden_name_food'] = $_POST['hidden_name_food'];
+$_SESSION['hidden_cate_food'] = $_POST['hidden_cate_food'];
+$_SESSION['hidden_ing_food'] = $_POST['hidden_ing_food'];
+$_SESSION['hidden_id_food'] = $_POST['hidden_id_food'];
+$_SESSION['hidden_step_food'] = $_POST['hidden_step_food'];
+$_SESSION['hidden_time_food'] = $_POST['hidden_time_food'];
+$_SESSION['hidden_level_food'] = $_POST['hidden_level_food'];
+$_SESSION['hidden_by_food'] = $_POST['hidden_by_food'];
+
+?>
+
 <!doctype html>
 <html>
 
@@ -120,7 +134,7 @@
                 </ul>
                 <div class="form-inline my-2 my-lg-0 mr-5">
                     <div class="dropdown">
-                        <a class="nav-link dropdown-toggle link-unstyled" style="text-decoration: none; color: #eee;" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle link-unstyled" style="text-decoration: none; color: #eee;" href="index.php" role="button" data-toggle="dropdown" aria-expanded="false">
                             <?php
                             error_reporting(0);
 
@@ -163,20 +177,20 @@
     
         $recipetxtTime = "";
         $recipetxtLevel = "";
-        if ($_POST['hidden_level_food'] == "1") {
+        if ($_SESSION['hidden_level_food'] == "1") {
             $recipetxtLevel = "Easy";
-        } elseif ($_POST['hidden_level_food'] == "2") {
+        } elseif ($_SESSION['hidden_level_food'] == "2") {
             $recipetxtLevel = "Medium";
-        } elseif ($_POST['hidden_level_food'] == "3") {
+        } elseif ($_SESSION['hidden_level_food'] == "3") {
             $recipetxtLevel = "Hard";
         }
-        if ($_POST['hidden_time_food'] == "1") {
+        if ($_SESSION['hidden_time_food'] == "1") {
             $recipetxtTime = "5 - 10 mins";
-        } elseif ($_POST['hidden_time_food'] == "2") {
+        } elseif ($_SESSION['hidden_time_food'] == "2") {
             $recipetxtTime = "10 - 30 mins";
-        } elseif ($_POST['hidden_time_food'] == "3") {
+        } elseif ($_SESSION['hidden_time_food'] == "3") {
             $recipetxtTime = "30 - 60 mins";
-        } elseif ($_POST['hidden_time_food'] == "4") {
+        } elseif ($_SESSION['hidden_time_food'] == "4") {
             $recipetxtTime = "60+ mins";
         }
     
@@ -186,17 +200,17 @@
         <div class="flex pt-5 md:pt-12 justify-center">
             <div class="bg-white md:h-96 w-11/12 md:w-7/10 md:mx-8 md:flex md:max-w-5xl shadow-lg rounded-lg">
                 <div class="md:w-1/2 h-64 rounded-t-lg md:rounded-t-none md:rounded-tl-lg md:rounded-bl-lg md:h-auto overflow-hidden">
-                    <img id="dish-page-image" class="object-cover" src="controls/img/<?php echo $_POST['hidden_img_food']; ?>" style="height: 100%;">
+                    <img id="dish-page-image" class="object-cover" src="controls/img/<?php echo $_SESSION['hidden_img_food']; ?>" style="height: 100%;">
                 </div>
                 <div class="mb-4 pt-5 px-6 max-w-xl md:max-w-5xl md:w-1/2" style="overflow: scroll">
-                    <h2 id="dish-page-name" class="text-3xl font-medium text-gray-800"><?php echo $_POST['hidden_name_food']; ?></h2>
+                    <h2 id="dish-page-name" class="text-3xl font-medium text-gray-800"><?php echo $_SESSION['hidden_name_food']; ?></h2>
                     <span id="dish-page-prep-time" class="bg-green-400 text-gray-50 text-sm font-light rounded-md px-2 py-1"><?php echo $recipetxtLevel; ?></span>
                     <span id="dish-page-cuisine-type" class="bg-green-400 text-gray-50 text-sm font-light rounded-md px-2 py-1"><?php echo $recipetxtTime; ?></span>
-                    <span id="dish-page-cuisine-type" class="bg-green-400 text-gray-50 text-sm font-light rounded-md px-2 py-1"><?php echo $_POST['hidden_cate_food']; ?></span>
+                    <span id="dish-page-cuisine-type" class="bg-green-400 text-gray-50 text-sm font-light rounded-md px-2 py-1"><?php echo $_SESSION['hidden_cate_food']; ?></span>
                     <p id="dish-page-ingredients" class="mt-4 text-gray-600 text-base font-regular">
                     <h4>Ingredients</h4>
                     <h4></h4>
-                    <?php echo nl2br($_POST['hidden_ing_food']) ?>
+                    <?php echo nl2br($_SESSION['hidden_ing_food']) ?>
                     </p>
 
                 </div>
@@ -213,7 +227,7 @@
                     <div class="pt-5 px-6 max-w-xl lg:max-w-5xl mb-4">
                         <h2 class="text-2xl font-medium text-blue-600">Cooking Steps<span class="text-indigo-600"></span></h2>
                         <p id="dish-page-direction-text" class="mt-4 font-regular text-base">
-                            <?php echo nl2br($_POST['hidden_step_food']) ?>
+                            <?php echo nl2br($_SESSION['hidden_step_food']) ?>
                         </p>
                         <!-- video section -->
 
@@ -225,8 +239,8 @@
                                 <p id="dish-page-owner-caption" class="text-sm font-light text-gray-600 truncate overflow-ellipsis">
                                     Create By 
                                 </p>
-                                <h2 id="dish-page-owner-name" class="text-gray-800 text-lg font-medium mb-2 cursor-pointer"><a href="index.php?name=<?php echo $_POST['hidden_by_food']; ?> ">
-                                        <?php echo $_POST['hidden_by_food']; ?> </a>
+                                <h2 id="dish-page-owner-name" class="text-gray-800 text-lg font-medium mb-2 cursor-pointer"><a href="index.php?name=<?php echo $_SESSION['hidden_by_food']; ?> ">
+                                        <?php echo $_SESSION['hidden_by_food']; ?> </a>
                                 </h2>
                             </div>
                         </div>
@@ -282,13 +296,20 @@
                 }
             }
         </style>
-
-
+        
         <!--Comments-->
         <div class="py-5 flex justify-center">
             <div class="w-11/12 md:w-7/10 md:mx-8 md:flex md:max-w-5xl shadow-lg rounded-lg">
-                <form class="w-full bg-white rounded-lg px-4 pt-2" method="post" action="controls/addcomment.php">
+            <form class="w-full bg-white rounded-lg px-4 pt-2" method="post" action="controls/addcomment.php">
                     <div class="flex flex-wrap -mx-3 mb-6">
+            <?php
+                            error_reporting(0);
+
+                            session_start();
+                            if($_SESSION['isLogin'] == 0 || $_SESSION['hidden_by_food'] == $_SESSION['name']  ){
+
+                            }elseif ($_SESSION['isLogin'] == 1) {?>
+                
                         <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg font-medium">Add a new comment</h2>
                         <div class="w-full md:w-full px-3 mb-2 mt-2">
                             <textarea id="dish-new-comment-text" class="bg-gray-100 rounded border border-gray-400 leading-normal 
@@ -297,7 +318,7 @@
                         <div class="w-full md:w-full flex items-start md:w-full px-3">
                             <div class="flex items-start w-1/2 text-gray-700 px-2 mr-auto">
                                 <!-- Rating Recipes -->
-                                <p>Rating for this recipe : <span class="star-rating">
+                                <p>Rating for this recipe : <span class="star-rating" >
                                         <label for="rate-1" style="--i:1"><i class="fa-solid fa-star"></i></label>
                                         <input type="radio" name="rating" id="rate-1" value="1">
                                         <label for="rate-2" style="--i:2"><i class="fa-solid fa-star"></i></label>
@@ -310,20 +331,28 @@
                                         <input type="radio" name="rating" id="rate-5" value="5">
                                     </span></p>
                             </div>
+                            
+                                    
+                                
                             <div class="-mr-1">
+                                <input type="hidden" name="hidden_total" value="<?php echo $_SESSION['totalCom'];?>">
+                                <input type="hidden" name="hidden_count" value="<?php echo $_SESSION['countCom'];?>">
                                 <input type="hidden" name="hidden_by" value="<?php echo $_SESSION['name']; ?>">
-                                <input type="hidden" name="hidden_id_food" value="<?php echo $_POST['hidden_id_food']; ?>">
-                                <input onClick="onCommentSubmitted()" type='submit' class="bg-blue-600 text-white font-medium py-1 px-4 border rounded-lg tracking-wide mr-1 hover:bg-blue-700 cursor-pointer" value='Post Comment'>
+                                <input type="hidden" name="hidden_id_food" value="<?php echo $_SESSION['hidden_id_food']; ?>">
+                                <input onClick="onCommentSubmitted()" type='submit' 
+                                        class="bg-blue-600 text-white font-medium py-1 px-4 border rounded-lg tracking-wide mr-1 hover:bg-blue-700 cursor-pointer" value='Post Comment'>
                             </div>
                         </div>
 
                 </form>
+                <?php } ?>
                 
                 <?php session_start();
+               
     error_reporting(0);
 
     $_SESSION['queryComment'] = "";
-    $_SESSION['queryComment'] = $_POST['hidden_id'];
+    $_SESSION['queryComment'] = $_SESSION['hidden_id'];
 
     include "controls/dbconnect.php";
     $mysqli = new mysqli($servername, $username, $password, $database);
@@ -331,7 +360,7 @@
 
 
 
-    $queryItem = "SELECT * FROM rating WHERE rat_id_food = '".$_POST['hidden_id_food']."'";
+    $queryItem = "SELECT * FROM rating WHERE rat_id_food = '".$_SESSION['hidden_id_food']."' OR rat_id_food = '".$_SESSION['id_back_comment']."'";
     // $queryItem = "SELECT foodrecipes.food_id,foodrecipes.food_name,foodrecipes.food_img,foodrecipes.food_mat,foodrecipes.food_step,
     //                             foodrecipes.food_time,foodrecipes.food_level,foodrecipes.food_category,foodrecipes.food_by,
     //                     rating.rat_id_food,rating.rat_score,rating.rat_comment,rating.rat_by 
@@ -344,23 +373,39 @@
 
     while($itemResult = mysqli_fetch_array($itemSQL)){
         $ratComment = $itemResult['rat_comment'];
-    
+        $_SESSION['comment'] = 1;
+        $_SESSION['countCom'] = $_SESSION['countCom'] + 1;
+        $_SESSION['totalCom'] = $_SESSION['totalCom'] + $itemResult['rat_score'];
+        $_SESSION['score_by'] = $itemResult['rat_by'];
+        
 ?>
            
 		   <!--Previously added comments-->
-           <?php if($itemResult['rat_id_food'] != $_POST['hidden_id_food']){?>
+           <?php if($itemResult['rat_id_food'] != $_SESSION['hidden_id_food']){?>
+            
             <p id="dish-no-comments" class="mx-auto text-center text-sm font-medium text-gray-400 mt-4">No Comments</p>
            <?php } ?>
 		   <div id="dish-comments" class="w-full px-4 pt-2 pb-2 mt-4">
 			   <div class="flex flex-row w-full p-2">
 					<img class="w-14 md:w-20 h-14 md:h-20 mr-2 object-cover rounded-full cursor-pointer" src="images/guess.png" />
 					<div class="ml-2">
-						<h2 class="text-gray-800 text-lg font-medium mb-2 cursor-pointer"><?php echo $itemResult['rat_by']; ?></h2>
+						<h2 class="text-gray-800 text-lg font-medium mb-2 cursor-pointer"><?php echo $itemResult['rat_by'] ; ?></h2>
 						<p class="font-regular text-gray-600"><?php echo $itemResult['rat_comment'];?></p>
+                        <p>Rating for this recipe : <span class="star-rating" >
+                        <?php for($i = 0 ; $i < $itemResult['rat_score'];$i++){?>
+                                        <label for="rate-1" style="--i:1"><i class="fa-solid fa-star"></i></label>
+                                        <input type="radio" name="<?php echo "rating".$x++;?>" id="rate-1" value="<?php echo $i;?>" checked>
+                            <?php } ?>
+                                    </span></p>
                         </div>
 				</div>
 		   </div>
-<?php } ?>
+
+<?php } 
+
+            if($_SESSION['comment'] != 1){?>
+            <p id="dish-no-comments" class="mx-auto text-center text-sm font-medium text-gray-400 mt-4">No Comments</p>
+            <?php } ?>
 		</div>
 	 </div>
 	</div>

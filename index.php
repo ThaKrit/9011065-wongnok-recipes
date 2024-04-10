@@ -40,6 +40,7 @@
                     error_reporting(0);
                     
                     session_start();
+                    $_SESSION['comment'] = 0;
                     if($_SESSION['isLogin'] == 1) {
                         echo  $_SESSION['name'];
                     }else{
@@ -159,8 +160,8 @@
 
                 <div class="col-md-3 mb-3">
                     <div class="card text-center"><br>
-                        <h5>Difficulty Level</h5> 
-                        <h5>Time to Cooking</h5>
+                        <strong><h6>Difficulty Level</h6> 
+                        <h6>Time to Cooking</h6></strong>
                         <form action="index.php?action=level&time" method="post" >
                         <div class="card-body">
                         <select name="txtTime"type="text" required name="txtTime" class="form-control" autocomplete="off" value="">
@@ -171,13 +172,24 @@
                                         <option value="4"><?php echo "60+ mins" ?></option>
                                     </select> 
                         <label></label>
+
                         <select name="txtLevel"type="text" required name="txtLevel" class="form-control" autocomplete="off" value="">
                                         <option value="0"><?php echo "Please select Level " ?></option>
                                         <option value="1"><?php echo "Easy" ?></option>
                                         <option value="2"><?php echo "Medium" ?></option>
                                         <option value="3"><?php echo "Hard" ?></option>
                                     </select> 
-                                    <label></label>
+                        <label></label>
+
+                        <select name="txtRating"type="text" required name="txtRating" class="form-control" autocomplete="off" value="">
+                                        <option value="0"><?php echo "Please select Rating " ?></option>
+                                        <option value="5"><?php echo "5 Rating" ?></option>
+                                        <option value="4"><?php echo "4 Rating" ?></option>
+                                        <option value="3"><?php echo "3 Rating" ?></option>
+                                        <option value="2"><?php echo "2 Rating" ?></option>
+                                        <option value="1"><?php echo "1 Rating" ?></option>
+                                    </select> 
+                        <label></label>
                             
                                 <input type="submit" class="btn btn-dark btn-block" value="View List" name="TimenLevel">
                             </form>
@@ -190,7 +202,6 @@
 
     <section id="allrecipes">
                 
-                <!-- Search Area -->
         <div class="container mt-5">
             <style>hr.hr1 {border: 1px solid gray;}</style>
             <hr class="hr1"><br><br>
@@ -227,34 +238,41 @@
                     $mysqli = new mysqli($servername, $username, $password, $database);
                     $mysqli->set_charset("UTF8");
 
-                    if(isset($_POST['category1'])){
-                            $queryItem = "SELECT * FROM foodrecipes WHERE food_category = '1'";
-                        }elseif(isset($_POST['category2'])){
-                            $queryItem = "SELECT * FROM foodrecipes WHERE food_category = '2'";
-                        }elseif(isset($_POST['category3'])){
-                            $queryItem = "SELECT * FROM foodrecipes WHERE food_category = '3'";
-                        }elseif(isset($_POST['searchRecipe'])){
-                    if($_POST['txtSearch'] != ""){
-                            $queryItem = "SELECT * FROM foodrecipes WHERE food_by LIKE '%" .$_POST['txtSearch']. "%' 
-                                            OR food_name LIKE '%" .$_POST['txtSearch']. "%'
-                                            OR food_mat LIKE '%" .$_POST['txtSearch']. "%' ";
-                        }elseif($_POST['txtSearch'] == ""){
+                    if(isset($_POST['searchRecipe'])) {
+                        if ($_POST['txtSearch'] != "") {
+                    $queryItem = "SELECT * FROM foodrecipes WHERE food_by LIKE '%" . $_POST['txtSearch'] . "%' 
+                                                OR food_name LIKE '%" . $_POST['txtSearch'] . "%'
+                                                OR food_mat LIKE '%" . $_POST['txtSearch'] . "%' ";
+                        } elseif ($_POST['txtSearch'] == "") {
                             $queryItem = "SELECT * FROM foodrecipes";
                         }
-                    }if(isset($_POST['TimenLevel'])){
-                            if($_POST['txtTime'] != '0' && $_POST['txtLevel'] == 0){
-                                $queryItem = "SELECT * FROM foodrecipes WHERE food_time = '".$_POST['txtTime']."'";
-                            }elseif($_POST['txtTime'] == '0' && $_POST['txtLevel'] != '0'){
-                                $queryItem = "SELECT * FROM foodrecipes WHERE food_level = '".$_POST['txtLevel']."'";
-                            }elseif($_POST['txtTime'] != '0' && $_POST['txtLevel'] != '0'){
-                                $queryItem = "SELECT * FROM foodrecipes WHERE food_time = '".$_POST['txtTime']."' AND food_level = '".$_POST['txtLevel']."' ";
-                            }
-                        }if(isset($_GET['name'])){
-                            $queryItem = "SELECT * FROM foodrecipes WHERE food_by LIKE '%" .$_GET['name']. "%'";
-                        }else{
-                            $queryItem = "SELECT * FROM foodrecipes";
+                    }elseif(isset($_POST['category1'])){
+                        $queryItem = "SELECT * FROM foodrecipes WHERE food_category = '1'";
+                    }elseif(isset($_POST['category2'])){
+                        $queryItem = "SELECT * FROM foodrecipes WHERE food_category = '2'";
+                    }elseif(isset($_POST['category3'])){
+                        $queryItem = "SELECT * FROM foodrecipes WHERE food_category = '3'";
+                    }elseif(isset($_POST['TimenLevel'])){
+                        if($_POST['txtTime'] != '0' && $_POST['txtLevel'] == 0 && $_POST['txtRating'] == 0){
+                            $queryItem = "SELECT * FROM foodrecipes WHERE food_time = '".$_POST['txtTime']."'";
+                        }elseif($_POST['txtTime'] == '0' && $_POST['txtLevel'] != '0'&& $_POST['txtRating'] == 0){
+                            $queryItem = "SELECT * FROM foodrecipes WHERE food_level = '".$_POST['txtLevel']."'";
+                        }elseif($_POST['txtTime'] == '0' && $_POST['txtLevel'] == '0'&& $_POST['txtRating'] != 0){
+                            $queryItem = "SELECT * FROM foodrecipes WHERE food_avg = '".$_POST['txtRating']."'";
+                        }elseif($_POST['txtTime'] != '0' && $_POST['txtLevel'] != '0'&& $_POST['txtRating'] != 0){
+                            $queryItem = "SELECT * FROM foodrecipes WHERE food_time = '".$_POST['txtTime']."' 
+                                                     AND food_level = '".$_POST['txtLevel']."' 
+                                                        AND food_avg = '".$_POST['txtRating']."' ";
+                        }elseif($_POST['txtTime'] == '0' && $_POST['txtLevel'] == 0 && $_POST['txtRating'] == 0){
+                            $queryItem = "SELECT * FROM foodrecipes ";
+                        }
+                    }elseif(isset($_GET['name'])){
+                        $queryItem = "SELECT * FROM foodrecipes WHERE food_by LIKE '%" .$_GET['name']. "%'";
+                    }else{
+                        $queryItem = "SELECT * FROM foodrecipes";
                     }
 
+                    
                     $itemSQL = $mysqli->query($queryItem);
                     
                     
@@ -276,15 +294,25 @@
                     
                             
                 ?>  
+                
             
                     <div class="col-md-4 mb-4">
                     <div class="card">
                         <img src="controls/img/<?php echo $recipeimages;?>" class="card-img-top" alt="..." style="height: 200px;">
                         <div class="card-body">
                             <h4 class="card-title text-center"><strong><?php echo $recipeName?></strong></h4>
-                            <h5 class="card-title text-center"><strong><?php echo $categoryName . " | ";?></strong>คะแนน 0 ดาว</h5>
+                            <h5 class="card-title text-center"><strong><?php echo $categoryName ;?></strong></h5>
+                                 <h6 class="card-title text-center">
+                                 <?php
+                                            if($itemResult['food_avg'] != 0){
+                                                echo "Rating".$itemResult['food_avg']." Star";
+                                            }elseif($itemResult['food_avg'] == 0){
+                                                echo "Without Rating";
+                                            }
+                                    ?> 
+                                    </h6>
                             <form action="detail.php" method="post" enctype="multipart/form-data">
-                                <input type="hidden" name="hidden_img_food" value="<?php echo $recipeimages;?>">
+                                <input type="hidden" name="hidden_img_food" value="<?php echo $_SESSION['hidden_img_food'] = $recipeimages;?>">
                                 <input type="hidden" name="hidden_name_food" value="<?php echo $recipeName ;?>">
                                 <input type="hidden" name="hidden_cate_food" value="<?php echo $categoryName ;?>">
                                 <input type="hidden" name="hidden_ing_food" value="<?php echo $recipeIngredients;?>">
