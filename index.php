@@ -344,9 +344,9 @@
         
             <p class="m-0 text-center text-white"> <?php 
             if($_SESSION['isLogin'] == 0){
-                echo"สวัสดีคณะกรรมการทุก ๆ ท่านครับ -/\-".$_SESSION['usermore'];
+                echo"สวัสดีคณะกรรมการทุก ๆ ท่านครับ -/\-";
             }else{
-                echo"สวัสดีคณะกรรมการทุก ๆ ท่านครับ -/\-".$_SESSION['usermore'];
+                echo"สวัสดีคณะกรรมการทุก ๆ ท่านครับ -/\-";
         }?> </p>
         
             

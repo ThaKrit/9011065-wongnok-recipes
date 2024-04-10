@@ -32,7 +32,10 @@
         session_start();
         echo "upload complete";
         header( "Location:../items.php" );
-	    } 
+	    }else{
+            echo '<script type="text/javascript">alert("กรุณากรอกข้อมูลให้ครบครับ !!");
+        window.location = "../items.php";</script>';
+        }
    
     $mysqli->close();
 ?>
